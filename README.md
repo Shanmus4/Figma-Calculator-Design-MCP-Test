@@ -10,6 +10,9 @@ This project brings a responsive calculator design from Figma to life using HTML
 - **Smooth Transitions**: Enhanced user experience with subtle UI animations.
 - **Dark/Light Mode Toggle**: Functionality to switch between dark and light themes (light mode UI to be implemented).
 
+## GitHub Repository
+[Figma Calculator Design MCP Test](https://github.com/Shanmus4/Figma-Calculator-Design-MCP-Test)
+
 ## Live Demo
 (Will be updated with a live demo link once deployed)
 

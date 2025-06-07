@@ -1,0 +1,165 @@
+/* style.css: Custom styles for Calculator */
+:root {
+  --color-bg-dark: #17171c;
+  --color-bg-light: #f1f2f3;
+  --color-btn-high: #4b5efc;
+  --color-btn-med: #4e505f;
+  --color-btn-low: #2e2f38;
+  --color-text-dark: #ffffff;
+  --color-text-light: #17171c;
+
+  /* Light Mode Colors */
+  --light-color-bg: #F1F2F3;
+  --light-color-text: #000000;
+  --light-color-btn-med: #D2D3DA;
+  --light-color-btn-low: #FFFFFF;
+
+  /* Dynamic Colors based on mode */
+  --current-bg-primary: var(--color-bg-dark);
+  --current-bg-secondary: var(--color-btn-low);
+  --current-bg-tertiary: var(--color-btn-med);
+  --current-bg-accent: var(--color-btn-high);
+  --current-text-primary: var(--color-text-dark);
+  --current-text-secondary: rgba(255, 255, 255, 0.4);
+  --current-toggle-bg: var(--color-btn-low);
+  --current-toggle-ball-bg: var(--color-btn-med);
+}
+
+body.light-mode {
+  --current-bg-primary: var(--light-color-bg);
+  --current-bg-secondary: var(--light-color-btn-low);
+  --current-bg-tertiary: var(--light-color-btn-med);
+  --current-bg-accent: var(--color-btn-high); /* High emphasis is the same */
+  --current-text-primary: var(--light-color-text);
+  --current-text-secondary: rgba(0, 0, 0, 0.4);
+  --current-toggle-bg: var(--light-color-btn-low);
+  --current-toggle-ball-bg: var(--light-color-btn-med);
+}
+
+body {
+  /* Removed fixed height, using min-h-screen from Tailwind */
+  margin: 0;
+  overflow: hidden; /* Hide both horizontal and vertical scrollbars */
+  background-color: var(--color-bg-dark); /* Ensure body remains dark */
+  color: var(--current-text-primary);
+  transition: color 0.5s ease-in-out; /* Only text color transitions */
+  font-family: 'Work Sans', sans-serif;
+}
+
+.calculator-container {
+  /* Removed background-color as it's dynamically provided by the background effect circle */
+  transition: background-color 0.5s ease;
+}
+
+.calc-history {
+  color: var(--current-text-secondary);
+  transition: color 0.5s ease-in-out; /* Smooth text color transition */
+}
+
+.calc-output {
+  color: var(--current-text-primary);
+  transition: color 0.5s ease-in-out; /* Smooth text color transition */
+}
+
+.mode-toggle-btn {
+  background-color: var(--current-toggle-bg);
+}
+
+.btn-high {
+  background-color: var(--current-bg-accent);
+  color: var(--color-text-dark); /* Always white for high emphasis buttons */
+}
+
+.btn-med {
+  background-color: var(--current-bg-tertiary);
+  color: var(--current-text-primary);
+}
+
+.btn-low {
+  background-color: var(--current-bg-secondary);
+  color: var(--current-text-primary);
+}
+
+button {
+  font-size: 44px !important;
+  border-radius: 24px;
+  height: 72px;
+  font-weight: normal;
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out; /* Synchronized background-color transition */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  filter: brightness(1.1); /* Slightly brighter on hover */
+}
+
+button:active {
+  filter: brightness(0.9); /* Slightly darker on press */
+  transform: none; /* Ensure no transform causes layout shift */
+  transition: background-color 0.1s;
+}
+
+button[data-action="backspace"] svg path,
+button[data-action="plus-minus"] svg path {
+  transition: fill 0.5s ease-in-out; /* Smooth color transition for icons */
+}
+
+/* Toggle animation */
+#mode-toggle {
+  transition: background 0.3s;
+}
+
+/* Toggle Ball */
+#toggle-ball {
+  background-color: var(--current-toggle-ball-bg);
+  /* Removed left positioning as it's now handled by JS transform on toggle-content */
+  /* Removed absolute positioning, left, and top as it's now inside flex container */
+}
+
+/* Background Effect Circle */
+#background-effect-circle {
+  transition: transform 0.8s ease-in-out; /* Slower animation */
+  transform: scale(0); /* Initial state: hidden (scaled to 0) */
+  /* Reverted box-shadow */
+  /* Removed filter: blur(20px); for now to debug grey appearance */
+  /* Removed opacity and color transitions as they are fixed */
+}
+
+body.light-mode {
+  /* background: var(--color-bg-light); Removed */
+  color: var(--color-text-light);
+}
+
+/* Display Animations */
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.calc-history.animate-up {
+  animation: slideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Softer ease */
+}
+
+.calc-output.animate-result {
+  animation: slideInRight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.calc-output.animate-flicker {
+  animation: flicker 0.1s infinite; /* Rapid flickering for matrix effect */
+} 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Responsive Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen h-full flex items-center justify-center transition-colors duration-500" id="body">
+  <!-- Background effect circle -->
+  <div id="background-effect-circle" class="absolute size-6" style="top: 80px; left: calc(50% - 12px); z-index: -1;">
+    <svg class="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24" style="transform-origin: center center;">
+      <circle cx="12" cy="12" fill="#F1F2F3" id="Background effect" r="12"/>
+    </svg>
+  </div>
+  <div class="w-full max-w-[720px] p-4 mx-auto">
+    <!-- Toggle Switch -->
+    <div class="flex justify-center mb-6">
+      <button id="mode-toggle" aria-label="Toggle dark/light mode" class="relative w-[72px] h-8 mode-toggle-btn rounded-2xl flex items-center transition-colors duration-300 overflow-hidden">
+          <!-- Sun icon -->
+          <span id="sun-icon" class="absolute top-1 size-6 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <g>
+              <path d="M13 22H11V18H13V22ZM8.46484 16.9502L5.63574 19.7783L4.22168 18.3643L7.04980 15.5352L8.46484 16.9502ZM19.7783 18.3643L18.3643 19.7783L15.5352 16.9502L16.9502 15.5352L19.7783 18.3643ZM12 8C14.2091 8 16 9.79086 16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8ZM12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10ZM6 13H2V11H6V13ZM22 13H18V11H22V13ZM8.46484 7.05078L7.04980 8.46484L4.22168 5.63574L5.63574 4.22168L8.46484 7.05078ZM19.7783 5.63574L16.9502 8.46484L15.5352 7.04980L18.3643 4.22168L19.7783 5.63574ZM13 6H11V2H13V6Z" fill="#000000" stroke="none" stroke-width="2"/>
+            </g>
+          </svg></span>
+          <!-- Moon icon -->
+          <span id="moon-icon" class="absolute top-1 size-6 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M10.3721 4.74693C10.1319 5.45360 10 6.21064 10 6.99986C10 10.8659 13.134 13.9999 17 13.9999C17.7882 13.9999 18.5453 13.8672 19.2529 13.6268L20.5215 14.8954C19.3161 18.4430 15.9591 20.9999 12 20.9999C7.02944 20.9999 3 16.9704 3 11.9999C3.00002 8.04125 5.55597 4.68302 9.10352 3.47740L10.3721 4.74693ZM8.03223 6.23326C6.20006 7.49594 5.00002 9.60832 5 11.9999C5 15.8659 8.13401 18.9999 12 18.9999C14.3916 18.9999 16.5032 17.7993 17.7656 15.9667C17.5133 15.9882 17.2579 15.9999 17 15.9999C12.0294 15.9999 8 11.9704 8 6.99986C8.00001 6.74172 8.01076 6.48599 8.03223 6.23326Z" fill="#FFFFFF"/>
+          </svg></span>
+          <div id="toggle-ball" class="absolute top-1 size-6 rounded-full transition-all duration-300" style="background-color: var(--current-toggle-ball-bg);"></div>
+      </button>
+    </div>
+    <!-- Calculator -->
+    <div class="rounded-3xl p-6 relative calculator-container flex flex-col gap-4 z-10" id="calculator-container">
+      <!-- Display -->
+      <div class="mb-2 h-[140px] flex flex-col justify-end">
+        <div class="text-right text-4xl font-light font-sans leading-tight calc-history" id="calc-history">6,291÷5</div>
+        <div class="text-right font-light font-sans leading-tight calc-output" id="calc-output">1,258.2</div>
+      </div>
+      <!-- Buttons -->
+      <div class="flex flex-col gap-4 mt-6 w-full">
+        <div class="flex flex-row gap-4 w-full flex-wrap">
+          <button class="btn-med h-[72px] grow" data-action="clear">C</button>
+          <button class="btn-med h-[72px] grow flex items-center justify-center" data-action="plus-minus">
+            <svg width="24" height="21" fill="none"><path d="M19.39 1.11L6.28 20.77L4.61 19.66L17.72 0L19.39 1.11ZM24 17.39H16V15.39H24V17.39ZM5 3.39H8V5.39H5V8.39H3V5.39H0V3.39H3V0.39H5V3.39Z" fill="var(--current-text-primary)"/></svg>
+          </button>
+          <button class="btn-med h-[72px] grow" data-action="percent">%</button>
+          <button class="btn-high h-[72px] grow" data-action="divide">÷</button>
+        </div>
+        <div class="flex flex-row gap-4 w-full flex-wrap">
+          <button class="btn-low h-[72px] grow" data-action="7">7</button>
+          <button class="btn-low h-[72px] grow" data-action="8">8</button>
+          <button class="btn-low h-[72px] grow" data-action="9">9</button>
+          <button class="btn-high h-[72px] grow" data-action="multiply">×</button>
+        </div>
+        <div class="flex flex-row gap-4 w-full flex-wrap">
+          <button class="btn-low h-[72px] grow" data-action="4">4</button>
+          <button class="btn-low h-[72px] grow" data-action="5">5</button>
+          <button class="btn-low h-[72px] grow" data-action="6">6</button>
+          <button class="btn-high h-[72px] grow" data-action="subtract">–</button>
+        </div>
+        <div class="flex flex-row gap-4 w-full flex-wrap">
+          <button class="btn-low h-[72px] grow" data-action="1">1</button>
+          <button class="btn-low h-[72px] grow" data-action="2">2</button>
+          <button class="btn-low h-[72px] grow" data-action="3">3</button>
+          <button class="btn-high h-[72px] grow" data-action="add">+</button>
+        </div>
+        <div class="flex flex-row gap-4 w-full flex-wrap">
+          <button class="btn-low h-[72px] grow" data-action="dot">.</button>
+          <button class="btn-low h-[72px] grow" data-action="0">0</button>
+          <button class="btn-low h-[72px] grow flex items-center justify-center" data-action="backspace">
+            <svg width="27" height="18" fill="none"><path d="M26.41 18H9L0 9L9 0H26.41V18ZM2.83 9L9.83 16H24.41V2H9.83L2.83 9ZM20.83 6L17.83 9L20.83 12L19.41 13.41L16.41 10.41L13.41 13.41L12 12L15 9L12 6L13.41 4.59L16.41 7.59L19.41 4.59L20.83 6Z" fill="var(--current-text-primary)"/></svg>
+          </button>
+          <button class="btn-high h-[72px] grow" data-action="equals">=</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html> 
